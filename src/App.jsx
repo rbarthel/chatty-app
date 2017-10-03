@@ -9,6 +9,7 @@ class App extends Component {
     this.socket = new WebSocket('ws://localhost:3001');
     this.state = {
       currentUser: {name: "Anonymous"},
+      onlineUsers: 0,
       messages: [
         {
           type: "notification",
@@ -21,8 +22,14 @@ class App extends Component {
 
   componentDidMount() {
     this.socket.onmessage = (event) => {
-      const messages = this.state.messages.concat(JSON.parse(event.data));
-      this.setState({messages: messages})
+      const fromServer = JSON.parse(event.data);
+
+      if (fromServer.type === 'onlineUsers') {
+        this.setState({onlineUsers: fromServer.onlineUsers});
+      } else if (fromServer.type === 'incomingMessage' || fromServer.type === 'incomingNotification' ) {
+        const messages = this.state.messages.concat(fromServer);
+        this.setState({messages: messages})
+      }
     }
   }
 
@@ -42,7 +49,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar onlineUsers={ this.state.onlineUsers } />
         <MessageList messages={ this.state.messages } />
         <ChatBar chatbarInput={ this.chatbarInput.bind(this) } updateName={ this.updateName.bind(this) }/>
       </div>
