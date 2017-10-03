@@ -6,6 +6,7 @@ import NavBar from './NavBar.jsx';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.socket = new WebSocket('ws://localhost:3001');
     this.state = {
       currentUser: {name: "Anonymous"},
       messages: [
@@ -17,8 +18,17 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    this.socket.onmessage = (event) => {
+      console.log(event.data);
+    }
+  }
+
   chatbarInput(value) {
     const newMessage = {username: this.state.currentUser.name, content: value};
+
+    this.socket.send(JSON.stringify(newMessage));
+
     const messages = this.state.messages.concat(newMessage)
     this.setState({messages: messages})
   }
@@ -33,7 +43,7 @@ class App extends Component {
       <div>
         <NavBar />
         <MessageList messages={ this.state.messages } />
-        <ChatBar currentUser={ this.state.currentUser } chatbarInput={ this.chatbarInput.bind(this) } updateName={ this.updateName.bind(this) }/>
+        <ChatBar currentUser={ this.state.currentUser } chatbarInput={ this.chatbarInput.bind(this) } updateName={ this.updateName.bind(this) /*pass as object*/}/>
       </div>
     );
   }
