@@ -13,6 +13,7 @@ class App extends Component {
         {
           username: "System",
           content: "Welcome to Chatty App!",
+          id: "7822da40-a88b-11e7-82dc-794fd3c032d1"
         }
       ]
     }
@@ -21,7 +22,6 @@ class App extends Component {
   componentDidMount() {
     this.socket.onmessage = (event) => {
       const messages = this.state.messages.concat(JSON.parse(event.data));
-      console.log(this);
       this.setState({messages: messages})
     }
   }
