@@ -20,17 +20,16 @@ class App extends Component {
 
   componentDidMount() {
     this.socket.onmessage = (event) => {
-      console.log(event.data);
+      const messages = this.state.messages.concat(JSON.parse(event.data));
+      console.log(this);
+      this.setState({messages: messages})
     }
   }
 
+  //send user input to websocket server
   chatbarInput(value) {
     const newMessage = {username: this.state.currentUser.name, content: value};
-
     this.socket.send(JSON.stringify(newMessage));
-
-    const messages = this.state.messages.concat(newMessage)
-    this.setState({messages: messages})
   }
 
   updateName(value) {
