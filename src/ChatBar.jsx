@@ -5,11 +5,22 @@ class ChatBar extends Component {
     super(props);
   }
 
+  contentInput(event) {
+    if (event.key === 'Enter') {
+      this.props.chatbarInput(event.target.value)
+      event.target.value = '';
+    }
+  }
+
+  nameInput(event) {
+    this.props.updateName(event.target.value)
+  }
+
   render() {
     return (
       <footer className="chatbar">
-        <input className="chatbar-username" placeholder={ 'Your Name: ' + (this.props.currentUser.name ? this.props.currentUser.name : 'Anonymous') } />
-        <input className="chatbar-message" placeholder="Type a message and hit ENTER" />
+        <input className="chatbar-username" placeholder='Your Name: (Optional)' onBlur={ this.nameInput.bind(this) }/>
+        <input className="chatbar-message" placeholder="Type a message and hit ENTER" onKeyUp={ this.contentInput.bind(this) } />
       </footer>
     )
   }
