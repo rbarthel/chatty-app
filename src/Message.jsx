@@ -7,7 +7,7 @@ class Message extends Component {
 
   render() {
     return (
-      <div className="message">
+      <div className={ this.props.message.type === 'incomingMessage' ? 'message' : 'message system' } >
         <span className="message-username">{ this.props.message.username }</span>
         <span className="message-content">{ this.props.message.content }</span>
       </div>

@@ -25,6 +25,14 @@ wss.on('connection', (ws) => {
     const messageOut = JSON.parse(messageIn);
     messageOut.id = uuidv1();
 
+    if (messageOut.type === 'postMessage') {
+      console.log('sending user message');
+      messageOut.type = 'incomingMessage';
+    } else {
+      console.log('sending system notification');
+      messageOut.type = 'incomingNotification';
+    }
+
     wss.clients.forEach(function each(client) {
       client.send(JSON.stringify(messageOut));
     });

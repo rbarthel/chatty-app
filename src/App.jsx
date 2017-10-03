@@ -11,7 +11,7 @@ class App extends Component {
       currentUser: {name: "Anonymous"},
       messages: [
         {
-          username: "System",
+          type: "notification",
           content: "Welcome to Chatty App!",
           id: "7822da40-a88b-11e7-82dc-794fd3c032d1"
         }
@@ -28,7 +28,7 @@ class App extends Component {
 
   //send user input to websocket server
   chatbarInput(value) {
-    const newMessage = {username: this.state.currentUser.name, content: value};
+    const newMessage = {type: 'postMessage', username: this.state.currentUser.name, content: value};
     this.socket.send(JSON.stringify(newMessage));
   }
 
@@ -42,7 +42,7 @@ class App extends Component {
       <div>
         <NavBar />
         <MessageList messages={ this.state.messages } />
-        <ChatBar currentUser={ this.state.currentUser } chatbarInput={ this.chatbarInput.bind(this) } updateName={ this.updateName.bind(this) /*pass as object*/}/>
+        <ChatBar chatbarInput={ this.chatbarInput.bind(this) } updateName={ this.updateName.bind(this) }/>
       </div>
     );
   }
