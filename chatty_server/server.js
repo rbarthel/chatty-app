@@ -39,6 +39,7 @@ wss.on('connection', (ws) => {
       const colorNum = Math.floor((Math.random() * 4));
       console.log('chose colour:', colorNum);
       ws.send(JSON.stringify({type: 'colorAssignment', color: colors[colorNum]}));
+      return;
     }
 
     messageOut.id = uuidv1();
