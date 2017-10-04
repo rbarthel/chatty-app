@@ -31,8 +31,6 @@ wss.on('connection', (ws) => {
 
   sendOnlineUsers();
 
-
-
   ws.on('message', function incoming(messageIn) {
 
     const messageOut = JSON.parse(messageIn);
@@ -48,7 +46,7 @@ wss.on('connection', (ws) => {
     if (messageOut.type === 'postMessage') {
       console.log('sending user message');
       messageOut.type = 'incomingMessage';
-    } else {
+    } else if (messageOut.type === 'postNotification'){
       console.log('sending system notification');
       messageOut.type = 'incomingNotification';
       messageOut.color = 'black';
