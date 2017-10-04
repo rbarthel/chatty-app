@@ -5,7 +5,7 @@ class Message extends Component {
     super(props);
     this.state = {
       img: '',
-      URLcheck: new RegExp('(\\S*.[jpg][png][gif])')
+      URLcheck: new RegExp('(http\\S*.(jpg|png|gif))')
     }
   }
 

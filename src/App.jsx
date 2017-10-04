@@ -35,8 +35,10 @@ class App extends Component {
 
   //send user input to websocket server
   chatbarInput(value) {
-    const newMessage = {type: 'postMessage', username: this.state.currentUser.name, content: value, color: this.state.currentUser.color};
-    this.socket.send(JSON.stringify(newMessage));
+    if (value !== '') {
+      const newMessage = {type: 'postMessage', username: this.state.currentUser.name, content: value, color: this.state.currentUser.color};
+      this.socket.send(JSON.stringify(newMessage));
+    }
   }
 
   updateName(value) {
