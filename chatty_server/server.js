@@ -54,7 +54,9 @@ wss.on('connection', (ws) => {
     }
 
     wss.clients.forEach(function each(client) {
-      client.send(JSON.stringify(messageOut));
+      if (client.readyState === ws.OPEN) {
+        client.send(JSON.stringify(messageOut));
+      }
     });
 
   });

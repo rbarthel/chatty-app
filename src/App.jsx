@@ -6,7 +6,7 @@ import NavBar from './NavBar.jsx';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.socket = new WebSocket('ws://localhost:3001');
+    this.socket = new WebSocket(`ws://${window.location.hostname}:3001`);
     this.state = {
       currentUser: {name: "Anonymous", color: 'black'},
       onlineUsers: 0,
