@@ -14,6 +14,8 @@ const server = express()
 // Create the WebSockets server
 const wss = new SocketServer({ server });
 
+const colors = ['#fb6727', '#42d0c4', '#3ab074', '#c6d77b'];
+
 function sendOnlineUsers() {
   console.log('client(s) connected:', wss.clients.size);
   const onlineUsers = { type: 'onlineUsers', onlineUsers: wss.clients.size };
@@ -29,9 +31,18 @@ wss.on('connection', (ws) => {
 
   sendOnlineUsers();
 
+
+
   ws.on('message', function incoming(messageIn) {
 
     const messageOut = JSON.parse(messageIn);
+
+    if (messageOut.type === 'colorRequest') {
+      const colorNum = Math.floor((Math.random() * 4));
+      console.log('chose colour:', colorNum);
+      ws.send(JSON.stringify({type: 'colorAssignment', color: colors[colorNum]}));
+    }
+
     messageOut.id = uuidv1();
 
     if (messageOut.type === 'postMessage') {
@@ -40,6 +51,7 @@ wss.on('connection', (ws) => {
     } else {
       console.log('sending system notification');
       messageOut.type = 'incomingNotification';
+      messageOut.color = 'black';
     }
 
     wss.clients.forEach(function each(client) {
