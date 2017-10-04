@@ -6,7 +6,7 @@ class Message extends Component {
     this.state = {
       img: '',
       URLcheck: new RegExp('(http\\S*.(jpg|png|gif))')
-    }
+    };
   }
 
   renderContent(content) {

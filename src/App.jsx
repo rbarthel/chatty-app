@@ -8,10 +8,10 @@ class App extends Component {
     super(props);
     this.socket = new WebSocket(`ws://${window.location.hostname}:3001`);
     this.state = {
-      currentUser: {name: "Anonymous", color: 'black'},
+      currentUser: {name: "Anonymous"},
       onlineUsers: 0,
       messages: []
-    }
+    };
   }
 
   componentDidMount() {
@@ -26,11 +26,11 @@ class App extends Component {
         this.setState({onlineUsers: fromServer.onlineUsers});
       } else if (fromServer.type === 'incomingMessage' || fromServer.type === 'incomingNotification' ) {
         const messages = this.state.messages.concat(fromServer);
-        this.setState({messages: messages})
+        this.setState({messages: messages});
       } else if (fromServer.type === 'colorAssignment') {
-        this.setState({currentUser: {name: this.state.currentUser.name, color: fromServer.color}})
+        this.setState({currentUser: {name: this.state.currentUser.name, color: fromServer.color}});
       }
-    }
+    };
   }
 
   //send user input to websocket server
@@ -46,7 +46,7 @@ class App extends Component {
     if (name !== this.state.currentUser.name) {
       const changedName = {type: 'postNotification', content: `${this.state.currentUser.name} changed their name to ${name}`};
       this.socket.send(JSON.stringify(changedName));
-      this.setState({currentUser: {name: name, color: this.state.currentUser.color}})
+      this.setState({currentUser: {name: name, color: this.state.currentUser.color}});
     }
   }
 

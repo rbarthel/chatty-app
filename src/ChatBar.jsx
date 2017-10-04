@@ -7,13 +7,13 @@ class ChatBar extends Component {
 
   contentInput(event) {
     if (event.key === 'Enter') {
-      this.props.chatbarInput(event.target.value)
+      this.props.chatbarInput(event.target.value);
       event.target.value = '';
     }
   }
 
   nameInput(event) {
-    this.props.updateName(event.target.value)
+    this.props.updateName(event.target.value);
   }
 
   render() {
