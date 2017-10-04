@@ -2,7 +2,7 @@
 
 ## What it is
 
-A minimal and light dev environment for ReactJS.
+Chatty is SPA (single-page application) messaging app using React, a popular front-end library created and used heavily by Facebook. It allows users to communicate with each other without having to register accounts. It uses WebSockets for multi-user real-time updates as well as modern tools for Node including Webpack and Babel.
 
 ## Screenshot
 
