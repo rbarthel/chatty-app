@@ -6,7 +6,7 @@ A minimal and light dev environment for ReactJS.
 
 ## Screenshot
 
-Coming soon
+![''](https://raw.githubusercontent.com/rbarthel/chatty-app/master/docs/screenshot.jpg)
 
 ## Getting Started
 
